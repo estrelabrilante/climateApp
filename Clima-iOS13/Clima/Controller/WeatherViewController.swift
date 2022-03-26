@@ -9,46 +9,53 @@
 import UIKit
 
 class WeatherViewController: UIViewController,UITextFieldDelegate {
+    var weatherManager = WeatherManager();
 
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     
-    @IBOutlet weak var serachTextField: UITextField!
+    @IBOutlet weak var searchField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        //textField will notify viewController
-        serachTextField.delegate = self
+        searchField.delegate = self
+        
     }
-  //search button pressed
-    @IBAction func searchPressed(_ sender: UIButton) {
-        serachTextField.endEditing(true)
-        print(serachTextField.text!);
-    }
+    
+    @IBAction func searchButtonPressed(_ sender: UIButton) {
+        
+        searchField.endEditing(true)
+        print(searchField.text!);    }
     //Return key  should act
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        serachTextField.endEditing(true)
-        print(serachTextField.text!)
+        searchField.endEditing(true)
+        print(searchField.text!)
         return true;
     }
     //useful for multiple textFileds if identity is not specified
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if serachTextField.text != ""{
+        if searchField.text != ""{
             return true
         }
         else{
-            serachTextField.placeholder = "Enter a city name"
+            searchField.placeholder = "Enter a city name"
             return false
         }
     }
     //clear textField after pressing search button or return key("Here : GO")
     func textFieldDidEndEditing(_ textField: UITextField) {
-        //use search.text to get weather for that city before editing to empty / reset textField
-        serachTextField.text = ""
+        //user enter city name in the searchField.text to get weather for that city before editing to empty / reset textField
+        
+        if let city = searchField.text{
+            //calling the function fetchWeather
+            weatherManager.fetchWeather(cityName: city)
+        }
+        //reset after clicking go key or search key
+        searchField.text = ""
         
     }
     
-    
+
 }
 
