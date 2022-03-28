@@ -26,11 +26,13 @@ class WeatherViewController: UIViewController,UITextFieldDelegate {
     @IBAction func searchButtonPressed(_ sender: UIButton) {
         
         searchField.endEditing(true)
-        print(searchField.text!);    }
+      //  print(searchField.text!);
+        
+    }
     //Return key  should act
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchField.endEditing(true)
-        print(searchField.text!)
+        //print(searchField.text!)
         return true;
     }
     //useful for multiple textFileds if identity is not specified
